@@ -20,9 +20,17 @@ public class KidBehaviorScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        agent.SetDestination(RandomPoint());
-        agent.stoppingDistance = stoppingDistance;
-        moving = true;
+
+        if (agent != null)
+        {
+            agent.SetDestination(RandomPoint());
+            agent.stoppingDistance = stoppingDistance;
+        }
+        else
+        {
+            Debug.LogError("NavMesh Agent has not been assigned!");
+        }
+            moving = true;
 
         if (kidPoints == null || kidPoints.Length == 0)
             Debug.LogError("Kid points not assigned!");
@@ -32,17 +40,20 @@ public class KidBehaviorScript : MonoBehaviour
 
     void Update()
     {
-        if (agent.enabled && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (agent != null)
         {
-            moving = false;
-            agent.isStopped = true;
-            agent.enabled = false;
-            GetComponent<Rigidbody>().linearVelocity = Vector3.zero; 
-            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        }
+            if (agent.enabled && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                moving = false;
+                agent.isStopped = true;
+                agent.enabled = false;
+                GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            }
 
-        if (debugMode) DebugBehavior();
-        else GameBehavior();
+            if (debugMode) DebugBehavior();
+            else GameBehavior();
+        }
         animator.SetBool("moving", moving);
     }
 
@@ -101,9 +112,8 @@ public class KidBehaviorScript : MonoBehaviour
     //Returns a random point of the available points, that is not the current one
     //It needs the points to be inserted into the kidPoints parameter in the editor
     //This points need to be inside the navmesh range 
-    UnityEngine.Vector3 RandomPoint()
+    Vector3 RandomPoint()
     {
-        int size = kidPoints.Length;
         int newIndex;
         do
         {
