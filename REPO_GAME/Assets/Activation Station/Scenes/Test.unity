@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptNote: Group 3
-  maximizedScript: 0
+  maximizedScript: 1
   activationStyleIndex: 2
   activationStyles:
   - The Checklist
