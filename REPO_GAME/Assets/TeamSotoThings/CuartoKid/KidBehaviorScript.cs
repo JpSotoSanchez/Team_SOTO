@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,6 +8,7 @@ public class KidBehaviorScript : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator animator;
+    public AudioSource scream;
     [SerializeField] private Transform[] kidPoints;
     [SerializeField] private Transform[] playersTransform;
     [SerializeField] private float stoppingDistance = 1.0f;
@@ -20,7 +22,6 @@ public class KidBehaviorScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-
         if (agent != null)
         {
             agent.SetDestination(RandomPoint());
@@ -153,8 +154,11 @@ public class KidBehaviorScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            scream.Play();
             catchEvent.Invoke();
-            gameObject.SetActive(false);
+            moving=false;
+            Destroy(gameObject,2);
+            
             //Debug.Log("Catched!");
         }
     }

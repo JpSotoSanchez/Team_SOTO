@@ -9,7 +9,7 @@ namespace SojaExiles
     {
 
         public CharacterController controller;
-
+       
         public float speed = 5f;
         public float gravity = -15f;
 
@@ -32,6 +32,9 @@ namespace SojaExiles
 
             controller.Move(velocity * Time.deltaTime);
 
+
+
         }
     }
+
 }
