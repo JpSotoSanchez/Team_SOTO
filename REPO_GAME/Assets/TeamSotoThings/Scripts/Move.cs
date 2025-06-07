@@ -7,6 +7,7 @@ public class FirstPersonMovement : MonoBehaviour
     public CharacterController controller;
     public Transform playerCamera;
      public GameObject winner;
+
     //public Animator animador;
     private float slower = 1.5f; // Velocidad reducida en el arbusto
     private float currentSpeed=1.5f;
@@ -60,5 +61,6 @@ winner.SetActive(true);
             
             Debug.Log("Catched!");
         }
+
     }
 }

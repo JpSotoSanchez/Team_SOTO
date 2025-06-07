@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - UV_Tag
+  - Clown
   layers:
   - Default
   - TransparentFX
